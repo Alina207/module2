@@ -15,13 +15,13 @@ router.get('/signup', (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  const usernameInput = req.body.name;
+  const usernameInput = req.body.username;
   const emailInput = req.body.email;
   const passwordInput = req.body.password;
 
-  if (emailInput === '' || passwordInput === '') {
+  if ( usernameInput === '' || emailInput === '' || passwordInput === '') {
     res.render('auth/signup', {
-      errorMessage: 'Enter both email and password to sign up.'
+      errorMessage: 'Please fill out all fields to sign up.'
     });
     return;
   }
@@ -80,6 +80,12 @@ router.post('/login',
     successFlash: 'You have been logged in, user!'
   })
 );
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash('success', 'You have logged out.');
+  res.redirect("/");
+});
 
 
 module.exports = router;

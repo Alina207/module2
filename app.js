@@ -16,7 +16,7 @@ const User = require('./models/user.js');
 
 
 dotenv.config();
-mongoose.connect("mongodb://localhost/passport-local");
+mongoose.connect("mongodb://localhost/SoundShelf");
 //mongoose.connect(process.env.MONGODB_URI);
 
 
