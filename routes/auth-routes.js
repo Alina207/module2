@@ -1,91 +1,94 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const passport = require('passport');
+const express    = require("express");
+const authRoutes = express.Router();
 
-const User = require('../models/user');
+// User model
+const User       = require("../models/user.js");
 
-const router = express.Router();
-const bcryptSalt = 10;
+// Bcrypt to encrypt passwords
+const bcrypt     = require("bcrypt");
 
-
-router.get('/signup', (req, res, next) => {
-  res.render('auth/signup', {
-    errorMessage: ''
-  });
+authRoutes.get("/signup", (req, res, next) => {
+  res.render("auth/signup.ejs");
 });
 
-router.post('/signup', (req, res, next) => {
-  const usernameInput = req.body.username;
-  const emailInput = req.body.email;
-  const passwordInput = req.body.password;
+authRoutes.post("/signup", (req, res, next) => {
+  const email = req.body.email; // added email
+  const username = req.body.username;
+  const password = req.body.password;
 
-  if ( usernameInput === '' || emailInput === '' || passwordInput === '') {
-    res.render('auth/signup', {
-      errorMessage: 'Please fill out all fields to sign up.'
-    });
+  if (email === "" || username === "" || password === "") { // added email
+    res.render("auth/signup.ejs", { message: "Indicate username and password" });
     return;
   }
 
-  User.findOne({ email: emailInput }, '_id', (err, existingUser) => {
-    if (err) {
-      next(err);
+  User.findOne({ email }, "email", (err, user) => { // added email
+    if (user !== null) {
+      res.render("auth/signup.ejs", { message: "There is already an account associated with that email" });
       return;
     }
 
-    if (existingUser !== null) {
-      res.render('auth/signup', {
-        errorMessage: `The email ${emailInput} is already in use.`
-      });
+  User.findOne({ username }, "username", (err, user) => {
+    if (user !== null) {
+      res.render("auth/signup.ejs", { message: "The username already exists" });
       return;
     }
 
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashedPass = bcrypt.hashSync(passwordInput, salt);
+    const salt     = bcrypt.genSaltSync(10);
+    const hashPass = bcrypt.hashSync(password, salt);
 
-    const userSubmission = {
-      username: usernameInput,
-      email: emailInput,
-      password: hashedPass
-    };
+    const newUser = User({
+      email: email, // email added
+      // firstName: req.body.firstName, // removed
+      // lastName: req.body.lastName, // removed
+      username: username,
+      encryptedPassword: hashPass
+    });
 
-    const theUser = new User(userSubmission);
-
-    theUser.save((err) => {
+    newUser.save((err) => {
       if (err) {
-        res.render('auth/signup', {
-          errorMessage: 'Something went wrong. Try again later.'
-        });
-        return;
+        res.render("auth/signup.ejs", { message: "Something went wrong" });
+      } else {
+        req.flash('success', 'You have been registered. Try logging in.');
+        res.redirect("/");
       }
-
-      res.redirect('/');
     });
   });
 });
+});
 
-// router.post('/signup', (req, res, next) => {
-// });
 
-router.get('/login', (req, res, next) => {
+const passport = require('passport');
+
+authRoutes.get('/login', (req, res, next) => {
   res.render('auth/login.ejs', {
     errorMessage: req.flash('error')
   });
 });
 
-router.post('/login',
+
+authRoutes.post('/login',
   passport.authenticate('local', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
-    successFlash: 'You have been logged in, user!'
+    successFlash: 'You have been logged in, user!',
+    passReqToCallback: true
   })
 );
 
-router.get("/logout", (req, res) => {
+authRoutes.get("/logout", (req, res) => {
   req.logout();
   req.flash('success', 'You have logged out.');
   res.redirect("/");
 });
 
 
-module.exports = router;
+authRoutes.get("/auth/facebook", passport.authenticate("facebook"));
+authRoutes.get("/auth/facebook/callback", passport.authenticate("facebook", {
+  successRedirect: "/",
+  failureRedirect: "/login"
+}));
+
+
+
+module.exports = authRoutes;

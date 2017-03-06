@@ -2,13 +2,12 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: String,
-  email: String,
-  password: String,
-  isUser: { type: Boolean, default: false }
+  email: { type: String, default: 'example@example.com' },
+  username: { type: String, required: true },
+  encryptedPassword: { type: String, required: true }
+}, {
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
-
-userSchema.set('timestamps', true);
 
 const User = mongoose.model("User", userSchema);
 

@@ -55,7 +55,7 @@ app.use(passport.session());
     //                     |
     // { usernameField: 'email' },
 passport.use(new LocalStrategy(
-  { emailField: 'email' },
+  { email: 'email' },
   (email, password, next) => {
     User.findOne({ email: email }, (err, user) => {
       if (err) {
@@ -72,25 +72,30 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser((user, cb) => {
-  cb(null, user._id);
+  if (user.provider) {
+    cb(null, user);
+  } else {
+    cb(null, user._id);
+  }
 });
 
 passport.deserializeUser((id, cb) => {
+  if (id.provider) {
+    cb(null, id);
+    return;
+  }
+
   User.findOne({ "_id": id }, (err, user) => {
-    if (err) {
-      cb(err);
-      return;
-    }
+    if (err) { return cb(err); }
     cb(null, user);
   });
 });
 
-
 app.use('/', index);
 app.use('/users', users);
 
-const authRoutes = require('./routes/auth-routes.js');
-app.use('/', authRoutes);
+const router = require('./routes/auth-routes.js');
+app.use('/', router);
 
 
 // catch 404 and forward to error handler
