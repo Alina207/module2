@@ -55,7 +55,7 @@ app.use(passport.session());
     //                     |
     // { usernameField: 'email' },
 passport.use(new LocalStrategy(
-  { usernameField: 'email' },
+  { emailField: 'email' },
   (email, password, next) => {
     User.findOne({ email: email }, (err, user) => {
       if (err) {
