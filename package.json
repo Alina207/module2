@@ -13,8 +13,12 @@
     "ejs": "~2.5.5",
     "express": "~4.14.1",
     "express-ejs-layouts": "~2.2.0",
-    "mongoose": "~4.8.5",
+    "mongodb": "^2.2.24",
+    "mongoose": "^4.8.6",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
