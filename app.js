@@ -69,17 +69,17 @@ passport.use(new LocalStrategy( // different from passport ex
   }
 ));
 
-passport.use(new GoodreadsStrategy({
-    consumerKey: process.env.GOODREADS_KEY,
-    consumerSecret: process.env.GOODREADS_SECRET,
-    callbackURL: process.env.HOST_ADDRESS + '/auth/goodreads/callback'
-  }, //different from fbStrateg and GoogleStrategy
-  function(token, tokenSecret, profile, done) {
-    User.findOrCreate({ goodreadsId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
-));
+// passport.use(new GoodreadsStrategy({
+//     consumerKey: process.env.GOODREADS_KEY,
+//     consumerSecret: process.env.GOODREADS_SECRET,
+//     callbackURL: process.env.HOST_ADDRESS + '/auth/goodreads/callback'
+//   }, //different from fbStrateg and GoogleStrategy
+//   function(token, tokenSecret, profile, done) {
+//     User.findOrCreate({ goodreadsId: profile.id }, function (err, user) {
+//       return done(err, user);
+//     });
+//   }
+// ));
 
 passport.serializeUser((user, cb) => {
   if (user.provider) {
@@ -110,6 +110,9 @@ app.use('/users', users);
 
 const authRoutes = require('./routes/auth-routes.js');
 app.use('/', authRoutes);
+
+const books = require('./routes/books.js');
+app.use('/', books);
 
 // --------------------------------------------
 

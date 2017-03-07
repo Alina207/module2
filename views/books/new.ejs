@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Books</title>
+    <link rel='stylesheet' href='/stylesheets/style.min.css' />
+  </head>
+  <body>
+    <h1>Add a New Book</h1>
+
+    <% if (errorMessage) { %>
+      <p class="error"> <%= errorMessage %> </p>
+    <% } %>
+
+    <% if (typeof errors !== 'undefined') { %>
+        <% for (let key in errors) { %>
+          <div> <%= errors[key].message %> </div>
+        <% } %>
+    <% } %>
+
+    <form action="/books" method="post">
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title">
+
+      <label for="author">Author</label>
+      <input type="text" name="author" id="author">
+
+      <button type="submit">Add a Book</button>
+    </form>
+
+    <form id="form1" runat="server">
+    <h2>Book Search</h2>
+    Author: <input type="text" id="authorTextbox" value="Patrick Rothfuss" /> <br />
+        Title: <input type="text" id="titleTextbox" value="The Name of the Wind" /> <br />
+        <input type="button" value="Get Book Information" id="getButton" onclick='getBookInformation()' />
+        <br /><br />
+        <div id="DataContainer" ></div>
+        </form>
+  </body>
+</html>

@@ -5,7 +5,7 @@ const router  = express.Router();
 router.get('/', (req, res, next) => {
   res.render('index', {
     successMessage: req.flash('success'),
-    userInfo: req.user
+    userInfo: req.user //userInfo or user?
   });
 });
 

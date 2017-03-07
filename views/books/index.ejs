@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.min.css' />
+  </head>
+  <body>
+    <a href='/books/new'> Add a New Book </a>
+
+  <ul>
+  	<% books.forEach((oneBook) => { %>
+     <li>
+  		<h2> <%= oneBook.title %> </h2>
+  		<p> <%= oneBook.author %> </p>
+  		<a href="/books/<%= oneBook._id %>">
+        See book details
+      </a>
+      <a href="/books/<%= oneBook._id %>/edit">
+      	Edit
+      </a>
+      <form action="/books/<%= oneBook._id %>/delete" method="POST">
+        <button type="submit">Delete Book</button>
+      </form>
+		 </li>
+		<% }) %>
+  	</ul>
+  </body>
+</html>

@@ -27,12 +27,6 @@ authRoutes.post("/signup", (req, res, next) => {
       return;
     }
 
-  User.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
-      res.render("auth/signup.ejs", { message: "The username already exists" });
-      return;
-    }
-
     const salt     = bcrypt.genSaltSync(10);
     const hashPass = bcrypt.hashSync(password, salt);
 
@@ -41,7 +35,7 @@ authRoutes.post("/signup", (req, res, next) => {
       // firstName: req.body.firstName, // removed
       // lastName: req.body.lastName, // removed
       username: username,
-      encryptedPassword: hashPass
+      password: hashPass
     });
 
     newUser.save((err) => {
@@ -53,7 +47,6 @@ authRoutes.post("/signup", (req, res, next) => {
       }
     });
   });
-});
 });
 
 

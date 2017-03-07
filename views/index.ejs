@@ -9,19 +9,9 @@
 <ul>
   <% if (userInfo) { %>
   <li> <a href="/logout">Log Out</a> </li>
+  <li> <a href="/books">My Books</a> </li>
   <% } else { %>
     <li> <a href="/signup">Sign Up</a> </li>
     <li> <a href="/login">Log In</a> </li>
   <% } %>
 </ul>
-
-</br> </br>
-
-  <form id="form1" runat="server">
-  <h2>Book Search</h2>
-  Author: <input type="text" id="authorTextbox" value="Patrick Rothfuss" /> <br />
-      Title: <input type="text" id="titleTextbox" value="The Name of the Wind" /> <br />
-      <input type="button" value="Get Book Information" id="getButton" onclick='getBookInformation()' />
-      <br /><br />
-      <div id="DataContainer" ></div>
-      </form>
