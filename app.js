@@ -9,7 +9,6 @@ const mongoose     = require('mongoose');
 const session      = require('express-session');
 const passport     = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const GoodreadsStrategy = require('passport-goodreads').Strategy;
 const bcrypt        = require('bcrypt');
 const flash         = require('connect-flash');
 const dotenv        = require('dotenv');

@@ -81,12 +81,4 @@ authRoutes.get("/logout", (req, res) => {
 });
 
 
-authRoutes.get('/auth/goodreads', passport.authenticate('goodreads'));
-authRoutes.get('/auth/goodreads/callback', passport.authenticate('goodreads',  {
-  successRedirect: "/",
-  failureRedirect: "/login"
-}));
-
-
-
 module.exports = authRoutes;
