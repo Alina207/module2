@@ -14,7 +14,7 @@ const bcrypt        = require('bcrypt');
 const flash         = require('connect-flash');
 const dotenv        = require('dotenv');
 
-const User          = require('./models/user-model.js');
+const User          = require('./models/user.js');
 
 dotenv.config();
 mongoose.connect(process.env.MONGODB_URI);

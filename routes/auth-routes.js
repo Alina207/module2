@@ -17,7 +17,7 @@ authRoutes.post("/signup", (req, res, next) => {
   const password = req.body.password;
 
   if (email === "" || username === "" || password === "") { // added email
-    res.render("auth/signup.ejs", { message: "Indicate username and password" });
+    res.render("auth/signup.ejs", { message: "Indicate email, username, and password" });
     return;
   }
 
@@ -65,13 +65,6 @@ authRoutes.get('/login', (req, res, next) => {
   });
 });
 
-authRoutes.get("/logout", (req, res) => {
-  req.logout();
-  req.flash('success', 'You have logged out.');
-  res.redirect("/");
-});
-
-
 authRoutes.post('/login',
   passport.authenticate('local', {
     successReturnToOrRedirect: '/',
@@ -82,13 +75,18 @@ authRoutes.post('/login',
   })
 );
 
+authRoutes.get("/logout", (req, res) => {
+  req.logout();
+  req.flash('success', 'You have logged out.');
+  res.redirect("/");
+});
+
+
 authRoutes.get('/auth/goodreads', passport.authenticate('goodreads'));
 authRoutes.get('/auth/goodreads/callback', passport.authenticate('goodreads',  {
   successRedirect: "/",
   failureRedirect: "/login"
 }));
-
-
 
 
 
