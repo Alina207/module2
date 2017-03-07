@@ -43,6 +43,16 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+//
+// app.use((req, res, next) => {
+//   if (req.user){
+//     res.local.user = req.user;
+//   } else {
+//     res.local.user = null;
+//   }
+//   next();
+// });
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -106,7 +116,7 @@ const index = require('./routes/index');
 app.use('/', index);
 
 const users = require('./routes/users'); // need?
-app.use('/users', users);
+app.use('/user', users);
 
 const authRoutes = require('./routes/auth-routes.js');
 app.use('/', authRoutes);

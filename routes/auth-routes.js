@@ -58,15 +58,21 @@ authRoutes.get('/login', (req, res, next) => {
   });
 });
 
+// authRoutes.post('/login',
+//   passport.authenticate('local', {
+//     successReturnToOrRedirect: '/user',
+//     failureRedirect: '/login',
+//     failureFlash: true,
+//     successFlash: 'You have been logged in, user!',
+//     passReqToCallback: true
+//   })
+// );
+
 authRoutes.post('/login',
-  passport.authenticate('local', {
-    successReturnToOrRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true,
-    successFlash: 'You have been logged in, user!',
-    passReqToCallback: true
-  })
-);
+  passport.authenticate('local'), (req, res) => {
+    res.redirect(`/user/${req.user.id}`);
+  });
+
 
 authRoutes.get("/logout", (req, res) => {
   req.logout();

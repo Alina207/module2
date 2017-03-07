@@ -12,6 +12,8 @@ router.get('/books', (req, res, next) => {
       return;
     }
 
+
+
       // display views/books/index.ejs
     res.render('books/index', {
       books: books
