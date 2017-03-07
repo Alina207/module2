@@ -12,7 +12,6 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoodreadsStrategy = require('passport-goodreads').Strategy;
-// const FbStrategy    = require('passport-facebook').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('./models/user.js');
 
@@ -80,16 +79,6 @@ passport.use(new GoodreadsStrategy({
     });
   }
 ));
-
-// passport.use(new FbStrategy({
-//   clientID: process.env.FB_CLIENT_ID,
-//   clientSecret: process.env.FB_CLIENT_SECRET,
-//   callbackURL: process.env.HOST_ADDRESS + '/auth/facebook/callback'
-// }, (accessToken, refreshToken, profile, done) => {
-//   done(null, profile);
-// }));
-
-
 
 passport.serializeUser((user, cb) => {
   if (user.provider) {
