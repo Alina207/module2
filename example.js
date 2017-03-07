@@ -1,93 +1,38 @@
-onst express    = require("express");
-const authRoutes = express.Router();
-
-// User model
-const User       = require("../models/user-model.js");
-
-// Bcrypt to encrypt passwords
-const bcrypt     = require("bcrypt");
-
-authRoutes.get("/signup", (req, res, next) => {
-  res.render("auth/signup-view.ejs");
-});
-
-authRoutes.post("/signup", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  if (username === "" || password === "") {
-    res.render("auth/signup-view.ejs", { message: "Indicate username and password" });
-    return;
+// IN SPOTIFYTEST.JS:
+const SpotifyWebApi = require('spotify-web-api-node');
+const spotify = new SpotifyWebApi();
+spotify.searchTracks('thousand miles', {}, (err, results) => {
+  if (err) {
+    throw err;
   }
+  console.log(results.body.tracks.items[0].name);
+  console.log(results.body.tracks.items[0].preview_url);
+});
+console.log('LAST LINE');
+const SpotifyWebApi = require('spotify-web-api-node');
 
-  User.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
-      res.render("auth/signup-view.ejs", { message: "The username already exists" });
+ // IN APP.JS FOR SPOTIFY EXAMPLE:
+app.get('/search-spotify', (req, res, next) => {
+  const term = req.query.searchTerm;
+  const spotify = new SpotifyWebApi();
+
+  spotify.searchTracks(term, {}, (err, results) => {
+    if (err) {
+      res.send('Oh noes! Error!');
       return;
     }
-
-    const salt     = bcrypt.genSaltSync(10);
-    const hashPass = bcrypt.hashSync(password, salt);
-
-    const newUser = User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      username: username,
-      encryptedPassword: hashPass
-    });
-
-    newUser.save((err) => {
-      if (err) {
-        res.render("auth/signup-view.ejs", { message: "Something went wrong" });
-      } else {
-        req.flash('success', 'You have been registered. Try logging in.');
-        res.redirect("/");
-      }
+    const theTrack = results.body.tracks.items[0];
+    res.render('track-search', {
+      track: theTrack,
+      searchTerm: term
     });
   });
 });
 
-
-const passport = require('passport');
-
-authRoutes.get('/login', (req, res, next) => {
-  res.render('auth/login-view.ejs', {
-    errorMessage: req.flash('error')
-  });
-});
-
-
-authRoutes.post('/login',
-  passport.authenticate('local', {
-    successReturnToOrRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true,
-    successFlash: 'You have been logged in, user!',
-    passReqToCallback: true
-  })
-);
-
-authRoutes.get("/logout", (req, res) => {
-  req.logout();
-  req.flash('success', 'You have logged out.');
-  res.redirect("/");
-});
-
-
-authRoutes.get("/auth/facebook", passport.authenticate("facebook"));
-authRoutes.get("/auth/facebook/callback", passport.authenticate("facebook", {
-  successRedirect: "/",
-  failureRedirect: "/login"
+// passport.use(new FbStrategy({
+  clientID: process.env.FB_CLIENT_ID,
+  clientSecret: process.env.FB_CLIENT_SECRET,
+  callbackURL: process.env.HOST_ADDRESS + '/auth/facebook/callback'
+}, (accessToken, refreshToken, profile, done) => {
+  done(null, profile);
 }));
-
-authRoutes.get("/auth/google", passport.authenticate("google", {
-  scope: ["https://www.googleapis.com/auth/plus.login",
-          "https://www.googleapis.com/auth/plus.profile.emails.read"]
-}));
-authRoutes.get("/auth/google/callback", passport.authenticate("google", {
-  successRedirect: "/",
-  failureRedirect: "/login",
-}));
-
-
-module.exports = authRoutes;

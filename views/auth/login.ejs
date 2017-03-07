@@ -1,9 +1,7 @@
 <h2> Log In </h2>
 
-<% if (errorMessage) { %>
-  <p class="error-message">
-    <%= errorMessage %>
-  </p>
+<% if (errorMessage.length > 0) { %>
+  <p class="error"> <%= errorMessage %> </p>
 <% } %>
 
 <form action="/login" method="post">
@@ -14,7 +12,7 @@
   </div> -->
 
   <div>
-    <label for="email"> Email </label>
+    <label for="email-input"> Email </label>
     <input type="email" name="email" id="email-input"
       placeholder="email@example.com">
   </div>
@@ -25,8 +23,15 @@
       placeholder="••••••••••••">
   </div>
 
-  <button> Log In </button>
+  <div>
+    <input type="submit" value="Log In">
+  </div>
+
 </form>
+
+<a href="/auth/facebook">Login With Facebook</a>
+<a href="/auth/goodreads">Login With Goodreads</a>
+
 
 <p>
   Don't have an account?

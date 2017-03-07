@@ -11,17 +11,16 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GoodreadsStrategy = require('passport-goodreads').Strategy;
+// const FbStrategy    = require('passport-facebook').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('./models/user.js');
 
 
 dotenv.config();
-mongoose.connect("mongodb://localhost/SoundShelf");
-//mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect("mongodb://localhost/SoundShelf");
+mongoose.connect(process.env.MONGODB_URI);
 
-
-const index = require('./routes/index');
-const users = require('./routes/users');
 
 var app = express();
 
@@ -45,7 +44,6 @@ app.use(session({
   saveUninitialized: true
 }));
 app.use(flash());
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -55,7 +53,7 @@ app.use(passport.session());
     //                     |
     // { usernameField: 'email' },
 passport.use(new LocalStrategy(
-  { email: 'email' },
+  { usernameField: 'email'},
   (email, password, next) => {
     User.findOne({ email: email }, (err, user) => {
       if (err) {
@@ -70,6 +68,28 @@ passport.use(new LocalStrategy(
     });
   }
 ));
+
+passport.use(new GoodreadsStrategy({
+    consumerKey: process.env.GOODREADS_KEY,
+    consumerSecret: process.env.GOODREADS_SECRET,
+    callbackURL: process.env.HOST_ADDRESS + '/auth/goodreads/callback'
+  },
+  function(token, tokenSecret, profile, done) {
+    User.findOrCreate({ goodreadsId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+// passport.use(new FbStrategy({
+//   clientID: process.env.FB_CLIENT_ID,
+//   clientSecret: process.env.FB_CLIENT_SECRET,
+//   callbackURL: process.env.HOST_ADDRESS + '/auth/facebook/callback'
+// }, (accessToken, refreshToken, profile, done) => {
+//   done(null, profile);
+// }));
+
+
 
 passport.serializeUser((user, cb) => {
   if (user.provider) {
@@ -91,22 +111,25 @@ passport.deserializeUser((id, cb) => {
   });
 });
 
+
+
+const index = require('./routes/index');
+const users = require('./routes/users');
+const authRoutes = require('./routes/auth-routes.js');
 app.use('/', index);
 app.use('/users', users);
-
-const router = require('./routes/auth-routes.js');
-app.use('/', router);
+app.use('/', authRoutes);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
