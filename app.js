@@ -1,33 +1,32 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express      = require('express');
+const path         = require('path');
+const favicon      = require('serve-favicon');
+const logger       = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser   = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const session = require('express-session');
-const flash = require('connect-flash');
-const passport = require('passport');
+const mongoose     = require('mongoose');
+const session      = require('express-session');
+const passport     = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoodreadsStrategy = require('passport-goodreads').Strategy;
-const bcrypt = require('bcrypt');
-const User = require('./models/user.js');
+const bcrypt        = require('bcrypt');
+const flash         = require('connect-flash');
+const dotenv        = require('dotenv');
 
+const User          = require('./models/user-model.js');
 
 dotenv.config();
-// mongoose.connect("mongodb://localhost/SoundShelf");
 mongoose.connect(process.env.MONGODB_URI);
 
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set('layout', 'layout');
-app.use(expressLayouts);
+
+// default value for title local
 app.locals.title = 'SoundShelf';
 
 // uncomment after placing your favicon in /public
@@ -37,8 +36,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressLayouts);
+
 app.use(session({
-  secret: 'SoundShelf Sessions',
+  secret: 'SoundShelf Sessions Passport App',
   resave: true,
   saveUninitialized: true
 }));
@@ -51,7 +52,7 @@ app.use(passport.session());
     //                     ---------
     //                     |
     // { usernameField: 'email' },
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy( // different from passport ex
   { usernameField: 'email'},
   (email, password, next) => {
     User.findOne({ email: email }, (err, user) => {
@@ -72,7 +73,7 @@ passport.use(new GoodreadsStrategy({
     consumerKey: process.env.GOODREADS_KEY,
     consumerSecret: process.env.GOODREADS_SECRET,
     callbackURL: process.env.HOST_ADDRESS + '/auth/goodreads/callback'
-  },
+  }, //different from fbStrateg and GoogleStrategy
   function(token, tokenSecret, profile, done) {
     User.findOrCreate({ goodreadsId: profile.id }, function (err, user) {
       return done(err, user);
@@ -100,15 +101,19 @@ passport.deserializeUser((id, cb) => {
   });
 });
 
-
-
+// ---------------_ROUTES GO HERE ---------------
 const index = require('./routes/index');
-const users = require('./routes/users');
-const authRoutes = require('./routes/auth-routes.js');
 app.use('/', index);
+
+const users = require('./routes/users'); // need?
 app.use('/users', users);
+
+const authRoutes = require('./routes/auth-routes.js');
 app.use('/', authRoutes);
 
+// --------------------------------------------
+
+// need?  app.set('layout', 'layout');
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
