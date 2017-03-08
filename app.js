@@ -9,11 +9,12 @@ const mongoose     = require('mongoose');
 const session      = require('express-session');
 const passport     = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const bcrypt        = require('bcrypt');
 const flash         = require('connect-flash');
 const dotenv        = require('dotenv');
 
-const User          = require('./models/user.js');
+const User          = require('./models/user-model.js');
 
 dotenv.config();
 mongoose.connect(process.env.MONGODB_URI);
@@ -42,15 +43,6 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-//
-// app.use((req, res, next) => {
-//   if (req.user){
-//     res.local.user = req.user;
-//   } else {
-//     res.local.user = null;
-//   }
-//   next();
-// });
 
 app.use(flash());
 app.use(passport.initialize());
@@ -69,7 +61,7 @@ passport.use(new LocalStrategy( // different from passport ex
         next(err);
       } else if (!user) {
         next(null, false, { message: "Incorrect email" });
-      } else if (!bcrypt.compareSync(password, user.password)) {
+      } else if (!bcrypt.compareSync(password, user.encryptedPassword)) {
         next(null, false, { message: "Incorrect password" });
       } else {
         next(null, user);
@@ -77,18 +69,14 @@ passport.use(new LocalStrategy( // different from passport ex
     });
   }
 ));
-
-// passport.use(new GoodreadsStrategy({
-//     consumerKey: process.env.GOODREADS_KEY,
-//     consumerSecret: process.env.GOODREADS_SECRET,
-//     callbackURL: process.env.HOST_ADDRESS + '/auth/goodreads/callback'
-//   }, //different from fbStrateg and GoogleStrategy
-//   function(token, tokenSecret, profile, done) {
-//     User.findOrCreate({ goodreadsId: profile.id }, function (err, user) {
-//       return done(err, user);
-//     });
-//   }
-// ));
+//
+// passport.use(new GoogleStrategy({
+//   clientID: process.env.GOOGLE_CLIENT_ID,
+//   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//   callbackURL: process.env.HOST_ADDRESS + '/auth/google/callback'
+// }, (accessToken, refreshToken, profile, next) => {
+//   next(null, profile);
+// }));
 
 passport.serializeUser((user, cb) => {
   if (user.provider) {
@@ -114,14 +102,11 @@ passport.deserializeUser((id, cb) => {
 const index = require('./routes/index');
 app.use('/', index);
 
-const users = require('./routes/users'); // need?
-app.use('/user', users);
-
 const authRoutes = require('./routes/auth-routes.js');
 app.use('/', authRoutes);
 
-const books = require('./routes/books.js');
-app.use('/', books);
+const bookRoutes = require('./routes/books-routes.js');
+app.use('/', bookRoutes);
 
 // --------------------------------------------
 

@@ -1,40 +1,39 @@
 const express = require('express');
+const ensure = require('connect-ensure-login');
 
-const Book = require('../models/book.js');
+const Book = require('../models/book-model.js');
 
-const router = express.Router();
+const bookRoutes = express.Router();
 
+// roomsRoutes.get('/user/:id', ensure.ensureLoggedIn(), (req, res, next) => {
+//   Room.find({ owner: req.params.id }, (err, myRooms) => {
 
-router.get('/books', (req, res, next) => {
-  Book.find((err, books) => {
+bookRoutes.get('/books', ensure.ensureLoggedIn(), (req, res, next) => {
+  Book.find({ owner: req.user._id }, (err, myBooks) => {
     if (err) {
       next(err);
       return;
     }
-
-
-
-      // display views/books/index.ejs
-    res.render('books/index', {
-      books: books
-    });
+    res.render('books/books-index.ejs', { books: myBooks });
   });
 });
 
-router.get('/books/new', (req, res, next) => {
-    // display views/products/new.ejs
-  res.render('books/new', {
-    errorMessage: ''
+bookRoutes.get('/books/new', ensure.ensureLoggedIn(),
+(req, res, next) => {
+  res.render('books/new.ejs', {
+    message: req.flash('success')
   });
 });
 
-router.post('/books', (req, res, next) => {
-  const book = {
+
+bookRoutes.post('/books',   ensure.ensureLoggedIn(),
+(req, res, next) => {
+  const newBook = new Book ({
     title: req.body.title,
     author: req.body.author,
-  };
+    owner: req.user._id
+  });
 
-  const theBook = new Book(book);
 
   theBook.save((err) => {
     if (err) {
@@ -54,7 +53,7 @@ router.post('/books', (req, res, next) => {
   });
 });
 
-router.get('/books/:id', (req, res, next) => {
+bookRoutes.get('/books/:id', (req, res, next) => {
     //                 --
     //                  |
     //                  --------
@@ -74,7 +73,7 @@ router.get('/books/:id', (req, res, next) => {
   });
 });
 
-router.get('/books/:id/edit', (req, res, next) => {
+bookRoutes.get('/books/:id/edit', (req, res, next) => {
   const bookId = req.params.id;
 
   Book.findById(bookId, (err, bookDoc) => {
@@ -90,7 +89,7 @@ router.get('/books/:id/edit', (req, res, next) => {
 
 });
 
-router.post('/books/:id', (req, res, next) => {
+bookRoutes.post('/books/:id', (req, res, next) => {
   const bookId = req.params.id;
   const bookUpdates = {
     title: req.body.title,
@@ -114,7 +113,7 @@ router.post('/books/:id', (req, res, next) => {
   console.log("Updated and Saved?");
 });
 
-router.post('/books/:id/delete', (req, res, next) => {
+bookRoutes.post('/books/:id/delete', (req, res, next) => {
   const bookId = req.params.id;
 
     // db.books.deleteOne({ _id: bookId })
@@ -133,5 +132,4 @@ router.post('/books/:id/delete', (req, res, next) => {
   });
 });
 
-
-module.exports = router;
+module.exports = bookRoutes;
