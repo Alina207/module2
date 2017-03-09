@@ -13,6 +13,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt        = require('bcrypt');
 const flash         = require('connect-flash');
 const dotenv        = require('dotenv');
+const SpotifyWebApi = require('spotify-web-api-node');
 
 const User          = require('./models/user-model.js');
 
@@ -27,7 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // default value for title local
-app.locals.title = 'SoundShelf';
+app.locals.title = 'SongShelf';
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -39,10 +40,36 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts);
 
 app.use(session({
-  secret: 'SoundShelf Sessions Passport App',
+  secret: 'SongShelf Sessions Passport App',
   resave: true,
   saveUninitialized: true
 }));
+
+app.get('/search-spotify', (req, res, next) => {
+  const term = req.query.searchTerm;
+
+  const spotify = new SpotifyWebApi();
+
+  spotify.searchTracks(term, {}, (err, results) => {
+    if (err) {
+      res.send('Oh noes! Error!');
+      return;
+    }
+
+    const theTrack = results.body.tracks.items[0];
+
+    res.render('track-search', {
+      track: theTrack,
+      searchTerm: term
+    });
+  });
+});
+
+
+
+
+
+
 
 app.use(flash());
 app.use(passport.initialize());
@@ -107,6 +134,9 @@ app.use('/', authRoutes);
 
 const bookRoutes = require('./routes/books-routes.js');
 app.use('/', bookRoutes);
+
+// const musicRoutes = require('./routes/music-routes.js');
+// app.use('/', musicRoutes);
 
 // --------------------------------------------
 

@@ -27,7 +27,9 @@
     "passport-facebook": "^2.1.1",
     "passport-goodreads": "^1.0.0",
     "passport-local": "^1.0.0",
-    "serve-favicon": "~2.3.0"
+    "prettyjson": "^1.2.1",
+    "serve-favicon": "~2.3.0",
+    "spotify-web-api-node": "^2.3.6"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

@@ -1,38 +1,46 @@
-<h2> Log In </h2>
 
 <% if (errorMessage.length > 0) { %>
   <p class="error"> <%= errorMessage %> </p>
 <% } %>
 
 <form action="/login" method="post">
-  <!-- <div>
-    <label for="username-input"> Username </label>
-    <input type="username" name="username" id="username-input"
-      placeholder="username">
-  </div> -->
+<div class="container">
+  <div class="row">
+    <div class="main">
 
-  <div>
-    <label for="email-input"> Email </label>
-    <input type="email" name="email" id="email-input"
-      placeholder="email@example.com">
+      <h3>Please Log In, or <a href="/signup">Sign Up</a></h3>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <a href="#" class="btn btn-lg btn-info btn-block">Google</a>
+        </div>
+      </div>
+      <div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
+
+      <form role="form">
+        <div class="form-group">
+          <label for="email-input"> Email </label>
+          <input type="email" class="form-control" name="email" id="email-input">
+        </div>
+
+        <div class="form-group">
+          <a class="pull-right" href="#">Forgot password?</a>
+          <label for="password-input"> Password </label>
+          <input type="password" class="form-control" name="password" id="password-input">
+        </div>
+        <div class="checkbox pull-right">
+          <label>
+            <input type="checkbox"> Remember me </label>
+        </div>
+        <input type="submit" value="Log In" class="btn btn btn-primary">
+      </form>
+
+    </div>
+
   </div>
-
-  <div>
-    <label for="password-input"> Password </label>
-    <input type="password" name="password" id="password-input"
-      placeholder="••••••••••••">
-  </div>
-
-  <div>
-    <input type="submit" value="Log In">
-  </div>
-
-</form>
-
-
-<p>
-  Don't have an account?
-  <a href="/signup">
-    Create an account.
-  </a>
-</p>
+</div>

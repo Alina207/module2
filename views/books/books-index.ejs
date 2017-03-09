@@ -1,19 +1,77 @@
-  <a href='/books/new'> Add a New Book </a>
+<h1>My <%= title %></h1>
 
-  <ul>
-  	<% books.forEach((oneBook) => { %>
-     <li>
-  		<h2> <%= oneBook.title %> </h2>
-  		<p> <%= oneBook.author %> </p>
-  		<a href="/books/<%= oneBook._id %>">
-        See book details
-      </a>
-      <a href="/books/<%= oneBook._id %>/edit">
-      	Edit
-      </a>
-      <form action="/books/<%= oneBook._id %>/delete" method="POST">
-        <button type="submit">Delete Book</button>
-      </form>
-		 </li>
-		<% }) %>
-  	</ul>
+  <div class="container">
+  	<div class="row">
+             <div id="custom-search-input">
+                  <div class="input-group col-md-12">
+                      <input type="search" class="  search-query form-control" placeholder="Search for a New Book" />
+                      <span class="input-group-btn">
+                          <button class="btn btn-danger" type="button">
+                              <span class=" glyphicon glyphicon-search"></span>
+                          </button>
+                      </span>
+                  </div>
+              </div>
+  	</div>
+  </div>
+
+<a href='/books/new'>Search for a New Book</a>
+
+
+<% books.forEach((oneBook) => { %>
+    <div class="component">
+    				<ul class="align">
+    					<li>
+    						<figure class='book'>
+
+    							<!-- Front -->
+
+    							<ul class='hardcover_front'>
+    								<li>
+    									<div class="coverDesign blue">
+    										<h1>CSS</h1>
+    										<p>BOOK</p>
+    									</div>
+    								</li>
+    								<li></li>
+    							</ul>
+
+    							<!-- Pages -->
+
+    							<ul class='page'>
+    								<li></li>
+    								<li>
+    									<a class="bookbtn" href="/books/<%= oneBook._id %>">Play</a>
+    								</li>
+    								<li>
+                    </li>
+    								<li></li>
+    								<li></li>
+    							</ul>
+
+    							<!-- Back -->
+
+    							<ul class='hardcover_back'>
+    								<li></li>
+    								<li></li>
+    							</ul>
+    							<ul class='book_spine'>
+    								<li></li>
+    								<li></li>
+    							</ul>
+    							<figcaption>
+    								<h1><%= oneBook.title %> </h1>
+    								<span><%= oneBook.author %> </span>
+    								<p>Website dedicated to sharing resources</p>
+                    <form action="/books/<%= oneBook._id %>/delete" method="POST">
+                      <button type="submit">Delete Book</button>
+                    </form>
+                    <form action="/books/<%= oneBook._id %>/edit" method="POST">
+                      <button type="submit">Edit Book</button>
+                    </form>
+    							</figcaption>
+    						</figure>
+    					</li>
+    				</ul>
+    			</div>
+        <% }) %>

@@ -35,11 +35,11 @@ bookRoutes.post('/books',   ensure.ensureLoggedIn(),
   });
 
 
-  theBook.save((err) => {
+  newBook.save((err) => {
     if (err) {
       res.render('books/new', {
         errorMessage: 'Validation failed!',
-        errors: theBook.errors
+        errors: Book.errors
       });
       return;
     }
@@ -110,7 +110,6 @@ bookRoutes.post('/books/:id', (req, res, next) => {
       //               |
     res.redirect('/books');
   });
-  console.log("Updated and Saved?");
 });
 
 bookRoutes.post('/books/:id/delete', (req, res, next) => {
@@ -131,5 +130,8 @@ bookRoutes.post('/books/:id/delete', (req, res, next) => {
     res.redirect('/books');
   });
 });
+
+
+
 
 module.exports = bookRoutes;

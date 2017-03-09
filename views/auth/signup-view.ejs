@@ -1,18 +1,46 @@
-<h2>Signup</h2>
-
 <form action="/signup" method="POST" id="form-container">
-  <label for="email-input">Email</label>
-  <input id="email-input" type="text" name="email" placeholder="email">
-  <label for="username-input">Username</label>
-  <input id="username-input" type="text" name="username" placeholder="username">
-  <label for="password-input">Password</label>
-  <input id="password-input" type="password" name="password" placeholder="password">
+  <div class="container">
+    <div class="row">
+      <div class="main">
 
-  <% if (typeof message !== "undefined") { %>
-    <div class="error-message"><%= message %></div>
-  <% } %>
+        <h3>Create Your Account</h3>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <a href="#" class="btn btn-lg btn-info btn-block">Google</a>
+          </div>
+        </div>
+        <div class="login-or">
+          <hr class="hr-or">
+          <span class="span-or">or</span>
+        </div>
 
-  <button>Create account</button>
+        <form role="form">
+          <div class="form-group">
+            <label for="email-input">Email</label>
+            <input id="email-input" type="text" name="email" class="form-control">
+          </div>
+
+          <form role="form">
+            <div class="form-group">
+              <label for="username-input">Username</label>
+              <input id="username-input" type="text" name="username" class="form-control">
+            </div>
+
+            <form role="form">
+              <div class="form-group">
+                <label for="password-input">Password</label>
+                <input id="password-input" type="password" name="password" class="form-control">
+              </div>
+
+            <% if (typeof message !== "undefined") { %>
+              <div class="error-message"><%= message %></div>
+            <% } %>
+
+            <input type="submit" value="Sign Up" class="btn btn btn-primary">
+
 
   <p class="account-message">
     Do you already have an account?
@@ -20,3 +48,7 @@
   </p>
 
 </form>
+</div>
+
+</div>
+</div>
