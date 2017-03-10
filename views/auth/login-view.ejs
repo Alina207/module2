@@ -1,14 +1,12 @@
 <div class="logincontent">
 
-
-<% if (errorMessage.length > 0) { %>
-  <p class="error"> <%= errorMessage %> </p>
-<% } %>
-
 <form action="/login" method="post">
 <div class="container">
   <div class="row">
     <div class="main">
+      <% if (errorMessage.length > 0) { %>
+        <p class="error"> <%= errorMessage %> </p>
+      <% } %>
 
       <h3>Please Log In, or <a href="/signup">Sign Up</a></h3>
       <div class="row">

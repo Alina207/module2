@@ -1,10 +1,11 @@
-<h1>My <%= title %></h1>
+<div class="booksindex">
+
+</div>
+<h1 >My <%= title %></h1>
 <ul>
   <li><a href='/books/new'>Add a New Book</a></li>
-
   <li> <a href="/logout">Log Out</a> </li>
 </ul>
-
 
 <% books.forEach((oneBook) => { %>
     <div class="component">
@@ -63,3 +64,4 @@
     				</ul>
     			</div>
         <% }) %>
+</div>

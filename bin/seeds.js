@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/3000');
+mongoose.connect(process.env.MONGODB_URI);
 
 const Book = require('../models/book.js');
 
