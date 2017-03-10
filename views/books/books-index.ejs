@@ -1,21 +1,9 @@
 <h1>My <%= title %></h1>
+<ul>
+  <li><a href='/books/new'>Add a New Book</a></li>
 
-  <div class="container">
-  	<div class="row">
-             <div id="custom-search-input">
-                  <div class="input-group col-md-12">
-                      <input type="search" class="  search-query form-control" placeholder="Search for a New Book" />
-                      <span class="input-group-btn">
-                          <button class="btn btn-danger" type="button">
-                              <span class=" glyphicon glyphicon-search"></span>
-                          </button>
-                      </span>
-                  </div>
-              </div>
-  	</div>
-  </div>
-
-<a href='/books/new'>Search for a New Book</a>
+  <li> <a href="/logout">Log Out</a> </li>
+</ul>
 
 
 <% books.forEach((oneBook) => { %>

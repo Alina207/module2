@@ -1,18 +1,22 @@
-<h1><%= title %></h1>
+<div class= "indexback">
 
-<p> Welcome to <%= title %>. </p>
+<div class="row">
+  <div class="col-sm-6 yellowbackground">
+    <div class="maintext">
+    <h1><%= title %></h1>
+    <h3> Welcome to <%= title %>.</h3>
 
-<% if (successMessage.length > 0) { %>
-  <p class="success"> <%= successMessage %> </p>
-<% } %>
-
-<ul>
-  <% if (userInfo) { %>
-  <li> <a href="/logout">Log Out</a> </li>
-  <li> <a href="/books">My Books</a> </li>
-  <% } else { %>
-
-    <li> <a href="/login">Get Started</a> </li>
-
-
-    <% } %>
+    <% if (successMessage.length > 0) { %>
+      <p class="success"> <%= successMessage %> </p>
+      <% } %>
+      <ul>
+        <% if (userInfo) { %>
+          <li> <a href="/logout">Log Out</a> </li>
+          <% } else { %>
+            <li> <a href="/login">Get Started</a> </li>
+            <% } %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+      </div>
+  </div></div>
