@@ -1,117 +1,45 @@
-    <h1><%= book.title %> Playlist </h1>
 
-    <h4> by <%= book.author %> </h4>
+<h1><%= book.title %> Playlist </h1>
 
-    <div class="container">
-      <div class="row">
-               <form action="/books/<%= book._id %>/searchtrack" method="post" id="custom-search-input">
-                    <div class="input-group col-md-12">
-                        <input type="text" class="search-query form-control" name="searchtrack" placeholder="Search for a New Track" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-danger" type="submit">
-                                <span class=" glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-      </div>
-    </div>
+<h4> by <%= book.author %> </h4>
 
-      <!-- Responsive table starts here -->
-      <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
-      <div class="table-responsive-vertical shadow-z-1">
-      <!-- Table starts here -->
-      <table id="table" class="table table-hover table-mc-light-blue">
-          <thead>
-            <tr>
-              <th>Chapter/Section</th>
-              <th>Song Title</th>
-              <th>Artist</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-title="ID">1</td>
-              <td data-title="Song Title">Material Design Color Palette</td>
-              <td data-title="Link">
-                <a href="https://github.com/zavoloklom/material-design-color-palette" target="_blank">GitHub</a>
-              </td>
-              <td data-title="Status">Completed</td>
-            </tr>
-            <tr>
-              <td data-title="ID">2</td>
-              <td data-title="Song Title">Material Design Iconic Font</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/uqCsB" target="_blank">Codepen</a>
-                <a href="https://github.com/zavoloklom/material-design-iconic-font" target="_blank">GitHub</a>
-              </td>
-              <td data-title="Status">Completed</td>
-            </tr>
-            <tr>
-              <td data-title="ID">3</td>
-              <td data-title="Song Title">Material Design Hierarchical Display</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/eNaEBM" target="_blank">Codepen</a>
-                <a href="https://github.com/zavoloklom/material-design-hierarchical-display" target="_blank">GitHub</a>
-              </td>
-              <td data-title="Status">Completed</td>
-            </tr>
-            <tr>
-              <td data-title="ID">4</td>
-              <td data-title="Song Title">Material Design Sidebar</td>
-              <td data-title="Link"><a href="http://codepen.io/zavoloklom/pen/dIgco" target="_blank">Codepen</a></td>
-              <td data-title="Status">Completed</td>
-            </tr>
-            <tr>
-              <td data-title="ID">5</td>
-              <td data-title="Song Title">Material Design Tiles</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/wtApI" target="_blank">Codepen</a>
-              </td>
-              <td data-title="Status">Completed</td>
-            </tr>
-            <tr>
-              <td data-title="ID">6</td>
-              <td data-title="Song Title">Material Design Typography</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/IkaFL" target="_blank">Codepen</a>
-                <a href="https://github.com/zavoloklom/material-design-typography" target="_blank">GitHub</a>
-              </td>
-              <td data-title="Status">Completed</td>
-            </tr>
-            <tr>
-              <td data-title="ID">7</td>
-              <td data-title="Song Title">Material Design Buttons</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/Gubja" target="_blank">Codepen</a>
-              </td>
-              <td data-title="Status">In progress</td>
-            </tr>
-            <tr>
-              <td data-title="ID">8</td>
-              <td data-title="Song Title">Material Design Form Elements</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/yaozl" target="_blank">Codepen</a>
-              </td>
-              <td data-title="Status">In progress</td>
-            </tr>
-            <tr>
-              <td data-title="ID">9</td>
-              <td data-title="Song Title">Material Design Email Template</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/qEVqzx" target="_blank">Codepen</a>
-              </td>
-              <td data-title="Status">Completed</td>
-            </tr>
-            <tr>
-              <td data-title="ID">10</td>
-              <td data-title="Song Title">Material Design Animation Timing (old one)</td>
-              <td data-title="Link">
-                <a href="http://codepen.io/zavoloklom/pen/Jbrho" target="_blank">Codepen</a>
-              </td>
-              <td data-title="Status">Completed</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="container">
+  <div class="row">
+           <form action="/books/<%= book._id %>/search-spotify" method="post" id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="search-query form-control" name="searchTrack" placeholder="Search for a New Track" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" type="submit">
+                            <span class=" glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+  </div>
+</div>
+
+
+
+<!-- Responsive table starts here -->
+<!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+<div class="table-responsive-vertical shadow-z-1">
+<!-- Table starts here -->
+<table id="table" class="table table-hover table-mc-light-blue">
+    <thead>
+      <tr>
+        <th>Chapter/Section</th>
+        <th>Song Title</th>
+        <th>Artist</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-title="ID">1</td>
+        <td data-title="Song Title">Song Title</td>
+        <td data-title="Link">Artist</td>
+        <td data-title="Status">Completed</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

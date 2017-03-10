@@ -1,0 +1,91 @@
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Search Results</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive-vertical shadow-z-1">
+        <!-- Table starts here -->
+        <table id="table" class="table table-hover table-mc-light-blue">
+            <thead>
+              <tr>
+                <th>Song Title</th>
+                <th>Artist</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-title="Song Title"><%= response.tracks.items[0].name %></td>
+                <td data-title="Link"><%= response.tracks.items[0].artists[0].name %></td>
+                <td data-title="Add"><button type="button" class="btn btn-primary">Add</button></td>
+              </tr>
+              <tr>
+                <td data-title="Song Title"><%= response.tracks.items[1].name %></td>
+                <td data-title="Link"><%= response.tracks.items[1].artists[0].name %></td>
+                <td data-title="Add"><button type="button" class="btn btn-primary">Add</button></td>
+              </tr>
+              <tr>
+                <td data-title="Song Title"><%= response.tracks.items[2].name %></td>
+                <td data-title="Link"><%= response.tracks.items[2].artists[0].name %></td>
+                <td data-title="Add"><button type="button" class="btn btn-primary">Add</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h1><%= book.title %> Playlist </h1>
+
+<h4> by <%= book.author %> </h4>
+
+<div class="container">
+  <div class="row">
+           <form action="/books/<%= book._id %>/search-spotify" method="post" id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="search-query form-control" name="searchTrack" placeholder="Search for a New Track" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger" type="submit">
+                            <span class=" glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+  </div>
+</div>
+
+
+
+<!-- Responsive table starts here -->
+<!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+<div class="table-responsive-vertical shadow-z-1">
+<!-- Table starts here -->
+<table id="table" class="table table-hover table-mc-light-blue">
+    <thead>
+      <tr>
+        <th>Chapter/Section</th>
+        <th>Song Title</th>
+        <th>Artist</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-title="ID">1</td>
+        <td data-title="Song Title">Song Title</td>
+        <td data-title="Link">Artist</td>
+        <td data-title="Status">Completed</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
