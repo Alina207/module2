@@ -1,3 +1,5 @@
+<div class= "show">
+
 
 <h1><%= book.title %> Playlist </h1>
 
@@ -5,7 +7,7 @@
 
 <div class="container">
   <div class="row">
-           <form action="/books/<%= book._id %>/search-spotify" method="post" id="custom-search-input">
+           <form action="/books/<%= book._id %>/search-spotify" method="POST" id="custom-search-input">
                 <div class="input-group col-md-12">
                     <input type="text" class="search-query form-control" name="searchTrack" placeholder="Search for a New Track" />
                     <span class="input-group-btn">
@@ -34,12 +36,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td data-title="ID">1</td>
-        <td data-title="Song Title">Song Title</td>
-        <td data-title="Link">Artist</td>
-        <td data-title="Status">Completed</td>
-      </tr>
+      <% if (typeof song != 'undefined') { %>
+        <tr>
+          <td data-title="ID">Ch 1</td>
+          <td data-title="Song Title"><%= song.track%></td>
+          <td data-title="Link"><%= song.artist%></td>
+          <!-- <td data-title="Status">Completed</td> -->
+        </tr>
+      <% } %>
+
     </tbody>
   </table>
+</div>
 </div>

@@ -1,6 +1,10 @@
 <!-- Button trigger modal -->
 
-
+<form class="hidden" id="cheatForm" action="/books/<%= bookId %>/new" method="post">
+  <input name="name" value="Hello" />
+  <input name="artist" value="Adele" />
+  <button>Fake submit</button>
+</form>
 <!-- Modal -->
 <div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -25,17 +29,7 @@
               <tr>
                 <td data-title="Song Title"><%= response.tracks.items[0].name %></td>
                 <td data-title="Link"><%= response.tracks.items[0].artists[0].name %></td>
-                <td data-title="Add"><button type="button" class="btn btn-primary">Add</button></td>
-              </tr>
-              <tr>
-                <td data-title="Song Title"><%= response.tracks.items[1].name %></td>
-                <td data-title="Link"><%= response.tracks.items[1].artists[0].name %></td>
-                <td data-title="Add"><button type="button" class="btn btn-primary">Add</button></td>
-              </tr>
-              <tr>
-                <td data-title="Song Title"><%= response.tracks.items[2].name %></td>
-                <td data-title="Link"><%= response.tracks.items[2].artists[0].name %></td>
-                <td data-title="Add"><button type="button" class="btn btn-primary">Add</button></td>
+                <td data-title="Add"><button type="button" id="cheatButton" class="btn btn-primary">Add</button></td>
               </tr>
             </tbody>
           </table>

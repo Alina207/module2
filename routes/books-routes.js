@@ -69,15 +69,16 @@ bookRoutes.get('/books/:id', (req, res, next) => {
     }
   Song.find({owner: bookId}, (err, song) => {
     if(err) {
-      next(err);
+      console.log(err);
       return;
     }
-    console.log(bookDoc);
+    console.log("Is song defined??? Lets find out!" + song);
+
     res.render('books/show', {
       book: bookDoc,
       songs: song
     });
-    console.log(song);
+
   });
 
   });
@@ -164,7 +165,8 @@ bookRoutes.post('/books/:id/search-spotify', (req, res, next) => {
       if (err) {  next(err);return; }
       res.render("books/show2", {
         response: data.body,
-        book: bookDoc
+        book: bookDoc,
+        bookId: bookId
       });
 
     });
@@ -188,6 +190,43 @@ bookRoutes.post('/books/:id/search-spotify', (req, res, next) => {
     // });
 
 
+
+});
+
+bookRoutes.post('/books/:id/new', (req, res, next) => {
+  const bookId = req.params.id;
+
+  // spotify.searchTracks(term, {}, (err, results) => {
+  //   if (err) {
+  //     res.send('Oh noes! Error!');
+  //     return;
+  //   }
+
+  //Search tracks whose name, album or artist contains 'Love'
+
+
+    // Book.findById(bookId, (err, bookDoc) => {
+    //   if (err) {  next(err);return; }
+    // });
+
+
+    // Object still needs to be identified
+    const newSong = new Song ({
+      artist: "Adele",
+      track: "Hello",
+      url: "hdsfsdhsdh",
+      owner: bookId
+    });
+    console.log(newSong);
+    newSong.save( (err) => {
+        if (err){
+          console.log(err);
+          return;}
+          else {
+            console.log("Hey that shit worked");
+            res.redirect(`/`);
+          }
+    });
 
 });
 
