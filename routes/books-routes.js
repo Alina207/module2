@@ -224,7 +224,7 @@ bookRoutes.post('/books/:id/new', (req, res, next) => {
           return;}
           else {
             console.log("Hey that shit worked");
-            res.redirect(`/`);
+            res.redirect(`/books/${bookId}`);
           }
     });
 
