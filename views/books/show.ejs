@@ -1,51 +1,49 @@
 <div class= "show">
 
-
 <h1><%= book.title %> Playlist </h1>
 
 <h4> by <%= book.author %> </h4>
 
 <div class="container">
   <div class="row">
-           <form action="/books/<%= book._id %>/search-spotify" method="POST" id="custom-search-input">
-                <div class="input-group col-md-12">
-                    <input type="text" class="search-query form-control" name="searchTrack" placeholder="Search for a New Track" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-danger" type="submit">
-                            <span class=" glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
-            </form>
+     <form action="/books/<%= book._id %>/search-spotify" method="POST" id="custom-search-input">
+      <div class="input-group col-md-12">
+          <input type="text" class="search-query form-control" name="searchTrack" placeholder="Search for a New Track" />
+          <span class="input-group-btn">
+            <button class="btn btn-danger" type="submit">
+              <span class=" glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+      </div>
+    </form>
   </div>
 </div>
 
-
-
 <!-- Responsive table starts here -->
 <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
-<div class="table-responsive-vertical shadow-z-1">
-<!-- Table starts here -->
-<table id="table" class="table table-hover table-mc-light-blue">
-    <thead>
-      <tr>
-        <th>Chapter/Section</th>
-        <th>Song Title</th>
-        <th>Artist</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if (typeof song != 'undefined') { %>
+  <div class="table-responsive-vertical shadow-z-1">
+  <!-- Table starts here -->
+    <table id="table" class="table table-hover table-mc-light-blue">
+      <thead>
         <tr>
-          <td data-title="ID">Ch 1</td>
-          <td data-title="Song Title"><%= song.track%></td>
-          <td data-title="Link"><%= song.artist%></td>
-          <!-- <td data-title="Status">Completed</td> -->
+          <th>Chapter/Section</th>
+          <th>Song Title</th>
+          <th>Artist</th>
+          <th>Description</th>
         </tr>
-      <% } %>
+      </thead>
 
-    </tbody>
-  </table>
-</div>
+      <tbody>
+        <% if (typeof song != 'undefined') { %>
+          <tr>
+            <td data-title="ID">Ch 1</td>
+            <td data-title="Song Title"><%= song.track%></td>
+            <td data-title="Link"><%= song.artist%></td>
+            <!-- <td data-title="Status">Completed</td> -->
+          </tr>
+        <% } %>
+
+      </tbody>
+    </table>
+  </div>
 </div>

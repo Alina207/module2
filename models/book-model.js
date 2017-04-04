@@ -5,6 +5,11 @@ const bookSchema = new Schema({
   content: { type: String, require: true },
   title: String,
   author: String,
+  songs: [
+    { artist: String,
+      track: String,
+      url: String}
+    ],
   //add google stuff
   owner: { type: Schema.Types.ObjectId, ref: 'User' }
 });

@@ -18,7 +18,8 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const User          = require('./models/user-model.js');
 
 dotenv.config();
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect('mongodb://localhost/soundshelf'); 
+// mongoose.connect(process.env.MONGODB_URI);
 
 
 const app = express();
