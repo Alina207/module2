@@ -1,22 +1,59 @@
 <div class= "indexback">
 
-<div class="row">
-  <div class="col-sm-6 yellowbackground">
-    <div class="maintext">
-    <h1><%= title %></h1>
-    <h3> Welcome to <%= title %>.</h3>
+  <div class="row">
 
-    <% if (successMessage.length > 0) { %>
-      <p class="success"> <%= successMessage %> </p>
-      <% } %>
-      <ul>
+    <div class="col-sm-6 yellowbackground">
+
+      <div class="maintext">
+
+        <h1><%= title %></h1>
+        <h3> Welcome to <%= title %>.</h3>
+        <ul>
         <% if (userInfo) { %>
-          <li> <a href="/logout">Log Out</a> </li>
-          <% } else { %>
-            <li> <a href="/login">Get Started</a> </li>
-            <% } %>
+          <button type="button" id="indexButton" class="btn btn-primary" data-toggle="modal" data-target="#modal-1">Log Out</button>
+          <!-- <li> <a href="/logout">Log Out</a> </li> -->
+        <% } else { %>
+          <button type="button" id="indexButton" class="btn btn-primary" data-toggle="modal" data-target="#modal-1">Get Started</button>
+            <!-- <li> <a href="/login">Get Started</a> </li> -->
+        <% } %>
+        </div>
+
+      </div>
+
+      <div class="col-sm-6">
+
+        <!-- LOGIN MODAL  -->
+        <div class="modal fade" id="modal-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Login</h4>
+              </div>
+              <div class="modal-body">
+                <%- include('auth/login-view') %>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-sm-6">
+
+        <!-- SIGNUP MODAL -->
+        <div class="modal fade" id="modal-2">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sign Up</h4>
+              </div>
+              <div class="modal-body">
+                <%- include('auth/signup-view') %>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-  </div></div>
+
+  </div>
+
+</div>

@@ -1,67 +1,71 @@
-<div class="booksindex">
+<div class="dashboard">
 
+<h1> My <%= title %></h1>
+
+<a href="#" class="btn btn-success" id="menu-toggle">Menu</a>
+
+<div class="sidebar">
+  <ul class="sidebar-nav">
+    <li><a href='/books/new'>Add a New Book</a></li>
+    <li><a href="/logout">Log Out</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
 </div>
-<h1 >My <%= title %></h1>
-<ul>
-  <li><a href='/books/new'>Add a New Book</a></li>
-  <li> <a href="/logout">Log Out</a> </li>
-</ul>
 
-<% books.forEach((oneBook) => { %>
-  <div class="component">
-		<ul class="align">
-			<li>
-				<figure class='book'>
 
-					<!-- Front -->
-
-    		<ul class='hardcover_front'>
-    			<li>
-    				<div class="coverDesign blue">
-    					<h1>CSS</h1>
-    					<p>BOOK</p>
-    				</div>
-    			</li>
-    			<li></li>
-    		</ul>
-
-    					<!-- Pages -->
-
-    		<ul class='page'>
-    			<li></li>
-    			<li>
-    				<a class="bookbtn" href="/books/<%= oneBook._id %>">Play</a>
-    			</li>
-    			<li>
-          </li>
-    			<li></li>
-    			<li></li>
-    		</ul>
-
-  					<!-- Back -->
-
-  			<ul class='hardcover_back'>
-  				<li></li>
-  				<li></li>
-  			</ul>
-  			<ul class='book_spine'>
-  				<li></li>
-  				<li></li>
-  			</ul>
-
-  			<figcaption>
-  				<h1><%= oneBook.title %> </h1>
-  				<span><%= oneBook.author %> </span>
-  				<p>Website dedicated to sharing resources</p>
+<!-- <div class="shelf">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <% books.forEach((oneBook) => { %>
+        <div class="book">
+          <img src="<%= oneBook.img_path %>" alt="<%= oneBook.img_name %>" />
+          <p>URL: <%= oneBook.img_path %> </p>
+          <%= console.log("this is it" + oneBook.img_path) %>
+          <p>Title: <%= oneBook.title %></p>
+          <p>Author: <%= oneBook.author %> </p>
+          <button><a href="/books/<%= oneBook._id %>">Playlist</a></button>
           <form action="/books/<%= oneBook._id %>/delete" method="POST">
             <button type="submit">Delete Book</button>
           </form>
-          <form action="/books/<%= oneBook._id %>/edit" method="POST">
+          <form action="/books/<%= oneBook._id %>/edit" method="GET">
             <button type="submit">Edit Book</button>
           </form>
-  			</figcaption>
-				</figure>
-			</li>
-		</ul>
-	</div>
-<% }) %>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<section class="books">
+
+  <% books.forEach((oneBook) => { %>
+
+
+    <div class="oneBookInfo">
+
+      <div class="oneBookImg">
+        <img src="<%= oneBook.img_path %>" alt="<%= oneBook.img_name %>" />
+      </div>
+
+      <br>
+
+      <div class="information">
+        <h5>Title: <%= oneBook.title %></h5>
+        <p>Author: <%= oneBook.author %> </p>
+        <button><a href="/books/<%= oneBook._id %>">Playlist</a></button>
+
+        <form action="/books/<%= oneBook._id %>/delete" method="POST">
+          <button type="submit">Delete Book</button>
+        </form>
+
+        <form action="/books/<%= oneBook._id %>/edit" method="GET">
+          <button type="submit">Edit Book</button>
+        </form>
+      </div>
+
+    </div>
+
+  <% }) %>
+</section>

@@ -67,7 +67,7 @@ authRoutes.get('/login', (req, res, next) => {
   authRoutes.post('/login',
     passport.authenticate('local', {
       successReturnToOrRedirect: '/books', // used to be /user
-      failureRedirect: '/login',
+      failureRedirect: '/',
       failureFlash: true,
       successFlash: 'You have been logged in, user!',
       passReqToCallback: true
@@ -87,7 +87,7 @@ authRoutes.get("/auth/google", passport.authenticate("google", {
 }));
 authRoutes.get("/auth/google/callback", passport.authenticate("google", {
   successRedirect: "/",
-  failureRedirect: "/login",
+  failureRedirect: "/",
 }));
 
 

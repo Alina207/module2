@@ -10,7 +10,8 @@ const bookSchema = new Schema({
       track: String,
       url: String}
     ],
-  //add google stuff
+  img_path: String,
+  //add google API stuff here later
   owner: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 

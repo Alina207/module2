@@ -6,10 +6,15 @@ const Book = require('../models/book-model.js');
 const Song = require('../models/song-model.js');
 const bookRoutes = express.Router();
 
-// roomsRoutes.get('/user/:id', ensure.ensureLoggedIn(), (req, res, next) => {
-//   Room.find({ owner: req.params.id }, (err, myRooms) => {
+const multer = require('multer');
 
-bookRoutes.get('/books', ensure.ensureLoggedIn(), (req, res, next) => {
+const upload = multer({ dest: __dirname + '/../public/uploads/'});
+
+
+
+
+
+bookRoutes.get('/books', ensure.ensureLoggedIn('/'), (req, res, next) => {
   Book.find({ owner: req.user._id }, (err, myBooks) => {
     if (err) {
       next(err);
@@ -19,7 +24,10 @@ bookRoutes.get('/books', ensure.ensureLoggedIn(), (req, res, next) => {
   });
 });
 
-bookRoutes.get('/books/new', ensure.ensureLoggedIn(),
+
+
+
+bookRoutes.get('/books/new', ensure.ensureLoggedIn('/'),
 (req, res, next) => {
   res.render('books/new.ejs', {
     message: req.flash('success')
@@ -27,32 +35,55 @@ bookRoutes.get('/books/new', ensure.ensureLoggedIn(),
 });
 
 
-bookRoutes.post('/books',   ensure.ensureLoggedIn(),
-(req, res, next) => {
-  const newBook = new Book ({
-    title: req.body.title,
-    author: req.body.author,
-    owner: req.user._id
-  });
 
+
+bookRoutes.post('/books', ensure.ensureLoggedIn('/'), upload.single('picture'),
+(req, res, next) => {
+  let bookInfo = '';
+
+  var filename = req.file.filename;
+
+  if (filename === undefined){
+    bookInfo = {
+      title: req.body.title,
+      author: req.body.author,
+      owner: req.user._id,
+      img_path: `/uploads/${defaultCover}`
+    };
+  } else {
+    bookInfo = {
+      title: req.body.title,
+      author: req.body.author,
+      owner: req.user._id,
+      img_path: `/uploads/${filename}`
+    };
+  }
+
+  console.log("Trying to see this object: " + req.file.filename);
+
+  const newBook = new Book(bookInfo);
+
+  console.log("New book: " + newBook);
 
   newBook.save((err) => {
     if (err) {
-      res.render('books/new', {
-        errorMessage: 'Validation failed!',
-        errors: Book.errors
-      });
+      next(err);
       return;
+    } else {
+      console.log("new book created");
+      //redirect to http://localhost:3000/books
+        //                               ---------
+          //                                  |
+            //       --------------------------
+              //     |
+              res.redirect('/books');
     }
-
-      // redirect to http://localhost:3000/books
-      //                                  ---------
-      //                                       |
-      //              --------------------------
-      //              |
-    res.redirect('/books');
   });
 });
+
+
+
+
 
 bookRoutes.get('/books/:id', (req, res, next) => {
     //                 --
@@ -61,7 +92,6 @@ bookRoutes.get('/books/:id', (req, res, next) => {
     //                         |
   const bookId = req.params.id;
 
-    // db.books.findOne({ _id: bookId })
   Book.findById(bookId, (err, bookDoc) => {
     if (err) {
       next(err);
@@ -78,11 +108,13 @@ bookRoutes.get('/books/:id', (req, res, next) => {
       book: bookDoc,
       songs: song
     });
-
   });
-
   });
 });
+
+
+
+
 
 bookRoutes.get('/books/:id/edit', (req, res, next) => {
   const bookId = req.params.id;
@@ -93,12 +125,16 @@ bookRoutes.get('/books/:id/edit', (req, res, next) => {
       return;
     }
 
-    res.render('/books', {
+    res.render('books/edit', {
       book: bookDoc
     });
   });
-
 });
+
+
+
+
+
 
 bookRoutes.post('/books/:id', (req, res, next) => {
   const bookId = req.params.id;
@@ -124,6 +160,11 @@ bookRoutes.post('/books/:id', (req, res, next) => {
   });
 });
 
+
+
+
+
+
 bookRoutes.post('/books/:id/delete', (req, res, next) => {
   const bookId = req.params.id;
 
@@ -144,6 +185,10 @@ bookRoutes.post('/books/:id/delete', (req, res, next) => {
 });
 
 
+
+
+
+
 bookRoutes.post('/books/:id/search-spotify', (req, res, next) => {
   const bookId = req.params.id;
   const term = req.body.searchTrack;
@@ -157,28 +202,21 @@ bookRoutes.post('/books/:id/search-spotify', (req, res, next) => {
 
   //Search tracks whose name, album or artist contains 'Love'
 
-
   spotify.searchTracks(term, { limit : 3})
   .then(function(data) {
 
     Book.findById(bookId, (err, bookDoc) => {
       if (err) {  next(err);return; }
-      res.render("books/show2", {
+      res.render("books/show", {
         response: data.body,
         book: bookDoc,
         bookId: bookId
       });
-
     });
-
-
-
   }, function(err) {
     console.log('Something went wrong!', err);
-  });
-
-
-  //   //const theTrack = results.body.tracks.items[1];
+    });
+     //const theTrack = results.body.tracks.items[1];
     // const theTrack = data.body.artists.items[1];
 
     // Object still needs to be identified
@@ -188,47 +226,14 @@ bookRoutes.post('/books/:id/search-spotify', (req, res, next) => {
     //   url: req.body.url,
     //   owner: req.user._id
     // });
-
-
-
 });
 
-bookRoutes.post('/books/:id/new', (req, res, next) => {
-  const bookId = req.params.id;
-
-  // spotify.searchTracks(term, {}, (err, results) => {
-  //   if (err) {
-  //     res.send('Oh noes! Error!');
-  //     return;
-  //   }
-
-  //Search tracks whose name, album or artist contains 'Love'
 
 
-    // Book.findById(bookId, (err, bookDoc) => {
-    //   if (err) {  next(err);return; }
-    // });
 
 
-    // Object still needs to be identified
-    const newSong = new Song ({
-      artist: "Adele",
-      track: "Hello",
-      url: "hdsfsdhsdh",
-      owner: bookId
-    });
-    console.log(newSong);
-    newSong.save( (err) => {
-        if (err){
-          console.log(err);
-          return;}
-          else {
-            console.log("Hey that shit worked");
-            res.redirect(`/books/${bookId}`);
-          }
-    });
 
-});
+
 
 
 

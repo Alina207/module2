@@ -13,12 +13,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt        = require('bcrypt');
 const flash         = require('connect-flash');
 const dotenv        = require('dotenv');
+const multer        = require('multer');
 const SpotifyWebApi = require('spotify-web-api-node');
 
 const User          = require('./models/user-model.js');
 
 dotenv.config();
-mongoose.connect('mongodb://localhost/soundshelf'); 
+mongoose.connect('mongodb://localhost/soundshelf');
 // mongoose.connect(process.env.MONGODB_URI);
 
 
@@ -53,7 +54,7 @@ app.get('/search-spotify', (req, res, next) => {
 
   spotify.searchTracks(term, {}, (err, results) => {
     if (err) {
-      res.send('Oh noes! Error!');
+      res.send('Oops! Error!');
       return;
     }
 
@@ -65,9 +66,6 @@ app.get('/search-spotify', (req, res, next) => {
     });
   });
 });
-
-
-
 
 
 
@@ -87,12 +85,16 @@ passport.use(new LocalStrategy( // different from passport ex
     User.findOne({ email: email }, (err, user) => {
       if (err) {
         next(err);
+        console.log("*Oops! An error occurred.");
       } else if (!user) {
         next(null, false, { message: "Incorrect email" });
+        console.log("*Oops! Wrong email.");
       } else if (!bcrypt.compareSync(password, user.encryptedPassword)) {
         next(null, false, { message: "Incorrect password" });
+        console.log("*Oops! Wrong password");
       } else {
         next(null, user);
+        console.log("*Success!" + user.username + " has logged in");
       }
     });
   }

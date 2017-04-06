@@ -1,0 +1,157 @@
+// HOMEPAGE -- INDEX.EJS //
+
+
+.indexback{
+  background-image: url("../images/backgroundimg.png");
+  height: 100vh;
+  background-size: cover;
+  background-position: left;
+}
+
+.yellowbackground {
+  text-align: right;
+  // background-color: #ff9800;
+  height: 100vh;
+}
+
+
+.maintext {
+  position: absolute;
+  top: 40%;
+  left: 62%;
+  transform: translateX(-50%)translateY(-50%);
+  color: white;
+  h1 {
+    font-size: 12vh;
+    font-weight: bold;
+  }
+  h3 {
+    line-height: 80%;
+    margin-bottom: 50px;
+    text-align: right;
+  }
+}
+
+// LOGIN/SIGNUP FORMS //
+
+.control-label {
+  text-align: right;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+
+}
+
+
+
+// BOOKSHELF PAGE -- BOOKS-INDEX.EJS //
+.sidebar {
+  z-index: 1;
+  position: absolute;
+  width: 20%;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  border: 2px solid red;
+  opacity: 0.9;
+  transition: .5s ease-out;
+  animation-duration: 2s;
+  margin-left: -20%;
+}
+
+.active {
+  margin-left: 0%;
+}
+
+.shelf {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+  border: 5px solid green;
+  text-align: center;
+}
+
+
+.dashboard {
+  background: #fff;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #DBD65C, #fff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #DBD65C, #fff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+h1 {
+  margin: 0;
+  color: #fff;
+}
+
+
+
+.book {
+  background: pink;
+  border-radius: 2px;
+  display: inline-block;
+  height: 275px;
+  margin: 1rem;
+  position: relative;
+  width: 200px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  &:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+
+  img {
+    position: absolute;
+    width: 10vw;
+  }
+}
+
+.books {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .oneBookInfo {
+    margin: 0 2vw 0 2vw;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    padding: 1.5vh;
+    width: 12vw;
+    height: 70vh;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    .oneBookImg {
+      width: 10vw;
+      margin: auto;
+
+      img {
+        width: 10vw;
+        overflow: hidden;
+      }
+    }
+
+    .information {
+      width: 10vw;
+      margin: auto;
+      text-align: center;
+      h5 {
+        text-align: center;
+      }
+
+      button  {
+        color: black;
+        border-radius: 4px;
+        border: 1px solid white;
+        background-color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0.5vh;
+      }
+
+      a {
+        color: black;
+      }
+    }
+  }
+}

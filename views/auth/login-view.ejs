@@ -1,47 +1,32 @@
-<div class="logincontent">
+<div class="loginview">
 
-<form action="/login" method="post">
-<div class="container">
-  <div class="row">
-    <div class="main">
-      <% if (errorMessage.length > 0) { %>
-        <p class="error"> <%= errorMessage %> </p>
-      <% } %>
+  <form role="form" action="/login" method="post" class="form-horizontal">
 
-      <h3>Please Log In, or <a href="/signup">Sign Up</a></h3>
-      <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-          <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6">
-          <a href="#" class="btn btn-lg btn-info btn-block">Google</a>
-        </div>
-      </div>
-      <div class="login-or">
-        <hr class="hr-or">
-        <span class="span-or">or</span>
-      </div>
-
-      <form role="form">
-        <div class="form-group">
-          <label for="email-input"> Email </label>
-          <input type="email" class="form-control" name="email" id="email-input">
-        </div>
-
-        <div class="form-group">
-          <a class="pull-right" href="#">Forgot password?</a>
-          <label for="password-input"> Password </label>
-          <input type="password" class="form-control" name="password" id="password-input">
-        </div>
-        <div class="checkbox pull-right">
-          <label>
-            <input type="checkbox"> Remember me </label>
-        </div>
-        <input type="submit" value="Log In" class="btn btn btn-primary">
-      </form>
-
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 col-sm-4 col-xs-4 control-label" for="email-input">Email</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <input id="email-input" name="email" type="text" class="form-control input-md">
     </div>
-
   </div>
-</div>
+
+  <!-- Password input-->
+  <div class="form-group">
+    <label class="col-md-4 col-sm-4 col-xs-4 control-label" for="password-input">Password</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <input id="password-input" name="password" type="password" class="form-control input-md">
+    </div>
+  </div>
+
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 col-sm-4 col-xs-4 control-label" for=""></label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <input id="" type="submit" value="Log In" class="btn btn-primary">
+      <a class="btn btn-success" href="#modal-2" data-toggle="modal" data-dismiss="modal"> Sign Up</a>
+    </div>
+  </div>
+
+  </form>
+
 </div>
