@@ -1,14 +1,16 @@
 <div class="dashboard">
 
-<h1> My <%= title %></h1>
 
-<a href="#" class="btn btn-success" id="menu-toggle">Menu</a>
+<a href="#" class="btn btn-success glyphicon glyphicon-menu-hamburger" id="menu-toggle"></a>
 
 <div class="sidebar">
   <ul class="sidebar-nav">
-    <li><a href='/books/new'>Add a New Book</a></li>
-    <li><a href="/logout">Log Out</a></li>
-    <li><a href="#">About</a></li>
+    <li><a class="glyphicon glyphicon-plus" href='/books/new'></a>
+        <a class="" href='/books/new'>Add a Book</a>
+    </li>
+    <li><a class="glyphicon glyphicon-user" href="/logout"></a>
+        <a class="" href="/logout">Log Out</a>
+    </li>
   </ul>
 </div>
 
@@ -52,16 +54,18 @@
       <br>
 
       <div class="information">
-        <h5>Title: <%= oneBook.title %></h5>
-        <p>Author: <%= oneBook.author %> </p>
-        <button><a href="/books/<%= oneBook._id %>">Playlist</a></button>
+        <!-- <h5>Title: <%= oneBook.title %></h5>
+        <p>Author: <%= oneBook.author %> </p> -->
+        <button class="glyphbtn"><a class="glyphbtn glyphicon glyphicon-play" href="/books/<%= oneBook._id %>"></a>
+          <a href="/books/<%= oneBook._id %>"></a>
+        </button>
 
-        <form action="/books/<%= oneBook._id %>/delete" method="POST">
-          <button type="submit">Delete Book</button>
+        <form class="glyphbtn" action="/books/<%= oneBook._id %>/delete" method="POST">
+          <button type="submit"><div class="glyphbtn glyphicon glyphicon-trash"</div></button>
         </form>
 
-        <form action="/books/<%= oneBook._id %>/edit" method="GET">
-          <button type="submit">Edit Book</button>
+        <form class="glyphbtn" action="/books/<%= oneBook._id %>/edit" method="GET">
+          <button type="submit"><div class="glyphbtn glyphicon glyphicon-edit"></div></button>
         </form>
       </div>
 

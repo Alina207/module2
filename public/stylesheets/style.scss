@@ -14,6 +14,18 @@
   height: 100vh;
 }
 
+#menu-toggle {
+  background-color: #DBD65C;
+  border: 1px solid white;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  &:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  margin: 0 0 0 0;
+  color: #337ab7;
+}
+
 
 .maintext {
   position: absolute;
@@ -44,51 +56,90 @@
 
 }
 
+.btn-success {
+background-color: #DBD65C;
+border: none;
+&:hover {
+  background-color: #DBD65C;
+}
+}
+
+.btn-primary {
+background-color: #337ab7;
+border: none;
+
+}
+
 
 
 // BOOKSHELF PAGE -- BOOKS-INDEX.EJS //
 .sidebar {
   z-index: 1;
   position: absolute;
-  width: 20%;
   height: auto;
   overflow: hidden;
-  background: #fff;
-  border: 2px solid red;
+  background-color: rgba(51, 122, 183, 0.8);
+  border-radius: 5px;
   opacity: 0.9;
   transition: .5s ease-out;
   animation-duration: 2s;
   margin-left: -20%;
+  a {
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px;
+
+  }
+  li {
+    list-style: none;
+    &:hover {
+      background-color: rgba(219, 214, 92, 1)
+
+    }
+  }
+}
+
+.sidebar-nav {
+    margin: 4px;
+    padding: 0;
+  a {
+    color: #fff;
+    font-weight: 300;
+  }
+
 }
 
 .active {
   margin-left: 0%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  &:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
 }
 
 .shelf {
   width: 100%;
   position: absolute;
   padding: 15px;
-  border: 5px solid green;
   text-align: center;
 }
 
 
 .dashboard {
-  background: #fff;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #DBD65C, #fff);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #DBD65C, #fff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100vh;
+  background-image: url("../images/wood.jpg");
+  background-size: cover;
+  // background: #fff;  /* fallback for old browsers */
+  // background: -webkit-linear-gradient(to bottom, #DBD65C, #fff);  /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(to bottom, #DBD65C, #fff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-h1 {
-  margin: 0;
-  color: #fff;
-}
+
 
 
 
 .book {
-  background: pink;
   border-radius: 2px;
   display: inline-block;
   height: 275px;
@@ -107,21 +158,28 @@ h1 {
   }
 }
 
+
+
+
 .books {
   width: 100vw;
-  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 22vh;
 
   .oneBookInfo {
     margin: 0 2vw 0 2vw;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 4px;
-    padding: 1.5vh;
+    padding: 2.5vh;
     width: 12vw;
-    height: 70vh;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    height: auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    &:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+    }
 
     .oneBookImg {
       width: 10vw;
@@ -130,28 +188,51 @@ h1 {
       img {
         width: 10vw;
         overflow: hidden;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        &:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      }
       }
     }
 
     .information {
       width: 10vw;
       margin: auto;
-      text-align: center;
+      // text-align: center;
       h5 {
-        text-align: center;
+        // text-align: center;
       }
 
       button  {
-        color: black;
+
+        color: #337ab7;
         border-radius: 4px;
-        border: 1px solid white;
-        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid #fff;
+        background-color: #DBD65C;
         margin-bottom: 0.5vh;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        &:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      }
       }
 
       a {
-        color: black;
+        color: #337ab7;
+        text-decoration: none;
       }
     }
   }
+}
+
+
+#indexButton {
+
+}
+
+.glyphbtn {
+  display: inline-block;
+  float: left;
+  margin: 0 6%;
 }
